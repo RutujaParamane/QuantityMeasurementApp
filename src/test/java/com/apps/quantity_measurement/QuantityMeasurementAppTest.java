@@ -77,4 +77,30 @@ public class QuantityMeasurementAppTest {
         Inches a = new Inches(1.0);
         assertTrue(a.equals(a), "Object must equal itself (reflexive)");
     }
+    
+    @Test
+    void testInchesEquality_Symmetric() {
+        Inches a = new Inches(2.5);
+        Inches b = new Inches(2.5);
+        assertTrue(a.equals(b) && b.equals(a), "Equality must be symmetric");
+    }
+
+    @Test
+    void testInchesEquality_Transitive() {
+        Inches a = new Inches(3.0);
+        Inches b = new Inches(3.0);
+        Inches c = new Inches(3.0);
+        assertTrue(a.equals(b) && b.equals(c) && a.equals(c), "Equality must be transitive");
+    }
+
+    @Test
+    void testInchesEquality_ConsistentOnRepeatedCalls() {
+        Inches a = new Inches(4.0);
+        Inches b = new Inches(4.0);
+        for (int i = 0; i < 5; i++) {
+            assertTrue(a.equals(b), "Equality should be consistent across multiple invocations");
+        }
+    }
+
+
 }
