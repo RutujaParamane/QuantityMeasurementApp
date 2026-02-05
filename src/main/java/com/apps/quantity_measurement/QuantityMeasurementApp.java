@@ -84,11 +84,11 @@ public class QuantityMeasurementApp {
     }
     
 
-private static String fmt(Length q) {
-        // Force the text to match your screenshot exactly
-        String unitText = (q.getUnit() == LengthUnit.FEET) ? "feet" : "inch";
-        return "Quantity(" + q.getValue() + ", \"" + unitText + "\")";
-    }
+//private static String fmt(Length q) {
+//        // Force the text to match your screenshot exactly
+//        String unitText = (q.getUnit() == LengthUnit.FEET) ? "feet" : "inch";
+//        return "Quantity(" + q.getValue() + ", \"" + unitText + "\")";
+//    }
 
 
     // Optional console demo (kept for verification; not required for tests)
@@ -103,20 +103,30 @@ private static String fmt(Length q) {
 //        System.out.println("Inches Input: " + i1 + " and " + i2);
 //        System.out.println("Inches Equal: " + i1.equals(i2)); // Expected: true
         
+//
+//
+//    	// UC3: 1.0 feet vs 12.0 inch -> Equal (true)
+//    	        Length q1 = new Length(1.0, LengthUnit.FEET);
+//    	        Length q2 = new Length(12.0, LengthUnit.INCHES);
+//    	        System.out.println("Input: " + fmt(q1) + " and " + fmt(q2));
+//    	        System.out.println("Output: Equal (" + q1.equals(q2) + ")");
+//
+//    	        // UC3: 1.0 inch vs 1.0 inch -> Equal (true)
+//    	        Length q3 = new Length(1.0, LengthUnit.INCHES);
+//    	        Length q4 = new Length(1.0, LengthUnit.INCHES);
+//    	        System.out.println("Input: " + fmt(q3) + " and " + fmt(q4));
+//    	        System.out.println("Output: Equal (" + q3.equals(q4) + ")");
 
+    	// UC4
+    	Length y1 = new Length(1.0, LengthUnit.YARDS);
+    	Length f3 = new Length(3.0, LengthUnit.FEET);
+    	System.out.println("Input: Quantity(1.0, \"yards\") and Quantity(3.0, \"feet\")");
+    	System.out.println("Output: Equal (" + y1.equals(f3) + ")");
 
-    	// UC3: 1.0 feet vs 12.0 inch -> Equal (true)
-    	        Length q1 = new Length(1.0, LengthUnit.FEET);
-    	        Length q2 = new Length(12.0, LengthUnit.INCHES);
-    	        System.out.println("Input: " + fmt(q1) + " and " + fmt(q2));
-    	        System.out.println("Output: Equal (" + q1.equals(q2) + ")");
-
-    	        // UC3: 1.0 inch vs 1.0 inch -> Equal (true)
-    	        Length q3 = new Length(1.0, LengthUnit.INCHES);
-    	        Length q4 = new Length(1.0, LengthUnit.INCHES);
-    	        System.out.println("Input: " + fmt(q3) + " and " + fmt(q4));
-    	        System.out.println("Output: Equal (" + q3.equals(q4) + ")");
-
+    	Length c1 = new Length(1.0, LengthUnit.CENTIMETERS);
+    	Length i1 = new Length(0.393701, LengthUnit.INCHES);
+    	System.out.println("Input: Quantity(1.0, \"centimeters\") and Quantity(0.393701, \"inch\")");
+    	System.out.println("Output: Equal (" + c1.equals(i1) + ")");
         
 
     }

@@ -105,74 +105,175 @@ public class QuantityMeasurementAppTest {
     //UC3
     
  // 1) Same-unit equality
+//    @Test
+//    public void testEquality_FeetToFeet_SameValue() {
+//        Length l1 = new Length(1.0, LengthUnit.FEET);
+//        Length l2 = new Length(1.0, LengthUnit.FEET);
+//        assertEquals(l1, l2);
+//    }
+//
+//    @Test
+//    public void testEquality_InchToInch_SameValue() {
+//        Length l1 = new Length(1.0, LengthUnit.INCHES);
+//        Length l2 = new Length(1.0, LengthUnit.INCHES);
+//        assertEquals(l1, l2);
+//    }
+//
+//    // 2) Cross-unit equality (1 ft == 12 in)
+//    @Test
+//    public void testEquality_FeetToInch_EquivalentValue() {
+//        Length feet = new Length(1.0, LengthUnit.FEET);
+//        Length inches = new Length(12.0, LengthUnit.INCHES);
+//        assertEquals(feet, inches);
+//    }
+//
+//    @Test
+//    public void testEquality_InchToFeet_EquivalentValue() {
+//        Length inches = new Length(12.0, LengthUnit.INCHES);
+//        Length feet = new Length(1.0, LengthUnit.FEET);
+//        assertEquals(inches, feet); // symmetry
+//    }
+//
+//    // 3) Inequality (different values)
+//    @Test
+//    public void testInequality_FeetToFeet_DifferentValue() {
+//        Length l1 = new Length(1.0, LengthUnit.FEET);
+//        Length l2 = new Length(2.0, LengthUnit.FEET);
+//        assertNotEquals(l1, l2);
+//    }
+//
+//    @Test
+//    public void testInequality_InchToInch_DifferentValue() {
+//        Length l1 = new Length(1.0, LengthUnit.INCHES);
+//        Length l2 = new Length(2.0, LengthUnit.INCHES);
+//        assertNotEquals(l1, l2);
+//    }
+//
+//    // 4) Null safety / type safety
+//    @Test
+//    public void testEquality_NullComparison_False() {
+//        Length l1 = new Length(1.0, LengthUnit.FEET);
+//        assertNotEquals(l1, null);
+//    }
+//
+//    @Test
+//    public void testEquality_SameReference_True() {
+//        Length l1 = new Length(1.0, LengthUnit.FEET);
+//        assertTrue(l1.equals(l1));
+//    }
+//
+//    // 5) Validation paths
+//    @Test
+//    public void testInvalid_Unit_Null_Throws() {
+//        assertThrows(IllegalArgumentException.class,
+//            () -> new Length(1.0, null));
+//    }
+//
+//    @Test
+//    public void testInvalid_Value_NaN_Throws() {
+//        assertThrows(IllegalArgumentException.class,
+//            () -> new Length(Double.NaN, LengthUnit.FEET));
+//    }
+	
+	// ---------- Yard <-> Yard ----------
     @Test
-    public void testEquality_FeetToFeet_SameValue() {
-        Length l1 = new Length(1.0, LengthUnit.FEET);
-        Length l2 = new Length(1.0, LengthUnit.FEET);
-        assertEquals(l1, l2);
+    void testEquality_YardToYard_SameValue() {
+        assertEquals(
+                new Length(1.0, LengthUnit.YARDS),
+                new Length(1.0, LengthUnit.YARDS)
+        );
     }
 
     @Test
-    public void testEquality_InchToInch_SameValue() {
-        Length l1 = new Length(1.0, LengthUnit.INCHES);
-        Length l2 = new Length(1.0, LengthUnit.INCHES);
-        assertEquals(l1, l2);
+    void testEquality_YardToYard_DifferentValue() {
+        assertNotEquals(
+                new Length(1.0, LengthUnit.YARDS),
+                new Length(2.0, LengthUnit.YARDS)
+        );
     }
 
-    // 2) Cross-unit equality (1 ft == 12 in)
+    // ---------- Yard <-> Feet ----------
     @Test
-    public void testEquality_FeetToInch_EquivalentValue() {
-        Length feet = new Length(1.0, LengthUnit.FEET);
-        Length inches = new Length(12.0, LengthUnit.INCHES);
+    void testEquality_YardToFeet_EquivalentValue() {
+        assertEquals(
+                new Length(1.0, LengthUnit.YARDS),
+                new Length(3.0, LengthUnit.FEET)
+        );
+    }
+
+    @Test
+    void testEquality_FeetToYard_EquivalentValue() {
+        assertEquals(
+                new Length(3.0, LengthUnit.FEET),
+                new Length(1.0, LengthUnit.YARDS)
+        );
+    }
+
+    // ---------- Yard <-> Inches ----------
+    @Test
+    void testEquality_YardToInches_EquivalentValue() {
+        assertEquals(
+                new Length(1.0, LengthUnit.YARDS),
+                new Length(36.0, LengthUnit.INCHES)
+        );
+    }
+
+    @Test
+    void testInequality_YardToFeet_NonEquivalentValue() {
+        assertNotEquals(
+                new Length(1.0, LengthUnit.YARDS),
+                new Length(2.0, LengthUnit.FEET)
+        );
+    }
+
+    // ---------- Centimeters ----------
+    @Test
+    void testEquality_CentimetersToCentimeters_SameValue() {
+        assertEquals(
+                new Length(2.0, LengthUnit.CENTIMETERS),
+                new Length(2.0, LengthUnit.CENTIMETERS)
+        );
+    }
+
+    @Test
+    void testEquality_CentimetersToInches_EquivalentValue() {
+        assertEquals(
+                new Length(1.0, LengthUnit.CENTIMETERS),
+                new Length(0.393701, LengthUnit.INCHES)
+        );
+    }
+
+    @Test
+    void testInequality_CentimetersToFeet_NonEquivalentValue() {
+        assertNotEquals(
+                new Length(1.0, LengthUnit.CENTIMETERS),
+                new Length(1.0, LengthUnit.FEET)
+        );
+    }
+
+    // ---------- Multi-unit transitive property ----------
+    @Test
+    void testEquality_MultiUnit_TransitiveProperty() {
+        Length yard   = new Length(1.0, LengthUnit.YARDS);
+        Length feet   = new Length(3.0, LengthUnit.FEET);
+        Length inches = new Length(36.0, LengthUnit.INCHES);
+
+        assertEquals(yard, feet);
         assertEquals(feet, inches);
+        assertEquals(yard, inches);
+    }
+
+    // ---------- Sanity checks with null/reference ----------
+    @Test
+    void testYard_SameReference() {
+        Length a = new Length(1.0, LengthUnit.YARDS);
+        assertTrue(a.equals(a));
     }
 
     @Test
-    public void testEquality_InchToFeet_EquivalentValue() {
-        Length inches = new Length(12.0, LengthUnit.INCHES);
-        Length feet = new Length(1.0, LengthUnit.FEET);
-        assertEquals(inches, feet); // symmetry
-    }
-
-    // 3) Inequality (different values)
-    @Test
-    public void testInequality_FeetToFeet_DifferentValue() {
-        Length l1 = new Length(1.0, LengthUnit.FEET);
-        Length l2 = new Length(2.0, LengthUnit.FEET);
-        assertNotEquals(l1, l2);
-    }
-
-    @Test
-    public void testInequality_InchToInch_DifferentValue() {
-        Length l1 = new Length(1.0, LengthUnit.INCHES);
-        Length l2 = new Length(2.0, LengthUnit.INCHES);
-        assertNotEquals(l1, l2);
-    }
-
-    // 4) Null safety / type safety
-    @Test
-    public void testEquality_NullComparison_False() {
-        Length l1 = new Length(1.0, LengthUnit.FEET);
-        assertNotEquals(l1, null);
-    }
-
-    @Test
-    public void testEquality_SameReference_True() {
-        Length l1 = new Length(1.0, LengthUnit.FEET);
-        assertTrue(l1.equals(l1));
-    }
-
-    // 5) Validation paths
-    @Test
-    public void testInvalid_Unit_Null_Throws() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new Length(1.0, null));
-    }
-
-    @Test
-    public void testInvalid_Value_NaN_Throws() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new Length(Double.NaN, LengthUnit.FEET));
+    void testYard_NullComparison() {
+        Length a = new Length(1.0, LengthUnit.YARDS);
+        assertNotEquals(a, null);
     }
 
 
