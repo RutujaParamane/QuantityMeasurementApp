@@ -61,4 +61,23 @@ public final class Length {
     public String toString() {
         return value + " " + unit.name().toLowerCase();
     }
+    
+    
+ // --- UC5: Unit-to-Unit conversion ---
+    public Length convertTo(LengthUnit targetUnit) {
+        if (targetUnit == null) {
+            throw new IllegalArgumentException("Target unit cannot be null");
+        }
+        // 1) Convert current value to base (inches)
+        double baseValueInInches = this.toBaseInches();
+
+        // 2) Convert base to target:
+        //    If toInchesFactor() means "1 <unit> = k inches",
+        //    then 1 inch = 1/k <unit>, so valueInTarget = inches / k
+        double convertedValue = baseValueInInches / targetUnit.toInchesFactor();
+
+        // (Optional) You can round for display, but keep raw value for precision.
+        return new Length(convertedValue, targetUnit);
+    }
+    
 }
