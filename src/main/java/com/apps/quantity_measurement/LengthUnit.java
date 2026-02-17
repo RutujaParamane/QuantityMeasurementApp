@@ -6,7 +6,9 @@ package com.apps.quantity_measurement;
  */
 public enum LengthUnit {
     FEET(12.0),
-    INCHES(1.0);
+    INCHES(1.0),
+    YARDS(36.0),          // 1 yard = 36 inches (3 feet)
+    CENTIMETERS(0.393701);// 1 cm   = 0.393701 inches
 
     private final double toInchesFactor;
 
@@ -14,9 +16,7 @@ public enum LengthUnit {
         this.toInchesFactor = toInchesFactor;
     }
 
-    /**
-     * @return how many inches make 1 unit of this type
-     */
+    /** @return how many inches make 1 unit of this type */
     public double toInchesFactor() {
         return toInchesFactor;
     }
